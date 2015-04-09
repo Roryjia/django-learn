@@ -53,6 +53,6 @@ docs/_build/
 # PyBuilder
 target/
 
-src/settings/__init__.py
+mysite/settings/__init__.py
 
-/src/media/*
+media/*
