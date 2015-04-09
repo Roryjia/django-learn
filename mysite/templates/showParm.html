@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load test_tags %}
+{% block title %}这个是传入参数{% endblock %}
+{% block div %}
+    {% set p1 hello %}
+    <span style="color: cadetblue">参入的参数是：{{ parm }} {{ bio|truncatewords:30 }}</span><br>
+    <span>现在的时间为：{% get_current_time "%Y-%m-%d %H:%M:%S" %}</span><br>
+    <span>这是自定义标签参数：{{  p1 }}</span>
+    <br>
+    <img src="{{ base.STATIC_URL }}me.jpg" alt="img">
+{% endblock %}

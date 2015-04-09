@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block title %}这是First View{% endblock %}
+{% block div %}
+    <p class="red">这是我喜欢的图片</p>
+    <img src="{{ base.STATIC_URL }}me.jpg" alt="img">
+{% endblock %}

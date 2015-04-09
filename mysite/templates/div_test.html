@@ -1,0 +1,164 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Div Test</title>
+    <link type="text/css" href="{% static 'css/blog/clear.css' %}">
+    <style type="text/css">
+        *:before,
+        *:after {
+          -webkit-box-sizing: border-box;
+             -moz-box-sizing: border-box;
+                  box-sizing: border-box;
+        }
+
+        div.logo {
+            border: 6px solid #949599;
+            height: 140px;
+            margin: 1.5%;
+            padding: 20px;
+            width: 155px;
+            background-color: #009F00;
+            border-radius: 50%;
+            background-image: url("{% static 'img/blog/dog.jpg' %}");
+            background-repeat: no-repeat;
+            float: left;
+        }
+
+        .container {
+            margin: 20px auto;
+            padding-left: 30px;
+            padding-right: 30px;
+            width: 960px;
+            height: auto;
+            background-color: #f0f0f0;
+        }
+        .btn {
+            border-right: 5px;
+            display: inline-block;
+            margin: 1.5%;
+        }
+        .btn-alt {
+            margin-left: 1.5%;
+            border: 1px solid #dfe2e5;
+            padding: 10px 30px;
+{#            background-color: deeppink;#}
+            font-family: "微软雅黑", "黑体", "Courier New", Courier, monospace;
+            font-size: 18px;
+            font-style: italic;
+            font-weight: bolder;
+            line-height: 22px;
+            text-decoration: line-through;
+            text-shadow: 3px 6px 2px rgba(0, 0, 0, .3);
+            letter-spacing: normal;
+        }
+        .demo {
+            height: 100px;
+            background-color: paleturquoise;
+            background: #466368;
+            background: radial-gradient(#a1d3b0 50%, #f6f1d3);
+        }
+        .left {
+            float: left;
+            margin: 1.5%;
+            width: 63%;
+        }
+        .right {
+            float: left;
+            margin: 1.5%;
+            width: 30%;
+        }
+
+        .footer {
+            width: 96%;
+            margin: 1.5%;
+        }
+        .theme {
+            width: 1020px;
+            margin: 0 auto;
+            background: #466368;
+            background: -webkit-linear-gradient(#648880, #293f50);
+            background:    -moz-linear-gradient(#648880, #293f50);
+            background:         linear-gradient(to right bottom, #648880, #293f50);
+        }
+        .inline {
+            display: inline-block;
+            width: 100%;
+        }
+        a:hover {
+            color: #a9b2b9;
+        }
+        a {
+            color: #648880;
+        }
+        .header {
+            margin: 20px auto;
+            height: auto;
+            width: 1016px;
+            background: #cbe2c1;
+            background: -webkit-linear-gradient(to right, #a1d3b0, #f6f1d3);
+            background: -moz-linear-gradient(to right, #a1d3b0, #f6f1d3);
+            background: linear-gradient(to right, #a1d3b0, #f6f1d3);
+            border: 2px solid #f0f0f0;
+        }
+        li {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 25px;
+            font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+        }
+        li a {
+            padding: 0 10px;
+            text-decoration: none;
+            background: #395870;
+            background: linear-gradient(#49708f, #293f50);
+            border-right: 1px solid rgba(0, 0, 0, .3);
+            text-decoration: none;
+        }
+        div.nav {
+            float: left;
+            margin: 80px auto;
+        }
+        .music {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo"></div>
+        <div class="nav">
+            <ul>
+                <li><a>Dog</a></li>
+                <li><a>Cat</a></li>
+                <li><a>Tiger</a></li>
+                <li><a>Kitty</a></li>
+                <li><a>Animals</a></li>
+                <li><a target="_blank" href="http://weibo.com/jiazj/">回忆在那片</a></li>
+                <li class="music">
+                    <audio controls loop>
+                        <source src="{% static 'css/blog/ccnn.mp3' %}" type="audio/mpeg">
+                    </audio>
+                </li>
+            </ul>
+        </div>
+
+        <div style="clear: both;"></div>
+    </div>
+    <div class="demo theme" ></div>
+    <section class="container">
+        <div class="left demo"></div>
+        <div class="right demo"></div>
+        <div style="clear: both;"></div>
+        <div class="inline">
+            <div class="right demo"></div>
+            <div class="right demo"></div>
+            <div class="right demo"></div>
+        </div>
+        <div class="footer demo"></div>
+        <a class="btn btn-alt">Button</a>
+    </section>
+    <div class="demo theme"></div>
+</body>
+</html>

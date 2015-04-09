@@ -1,0 +1,156 @@
+/*
+Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.html or http://ckeditor.com/license
+*/
+.cke_dialog{visibility:visible}.cke_dialog_body{z-index:1;background:#eaeaea;border:1px solid #b2b2b2;border-bottom-color:#999;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;-moz-box-shadow:0 0 3px rgba(0,0,0,.15);-webkit-box-shadow:0 0 3px rgba(0,0,0,.15);box-shadow:0 0 3px rgba(0,0,0,.15)}.cke_browser_gecko19 .cke_dialog_body{position:relative}.cke_dialog strong{font-weight:bold}.cke_dialog_title{font-weight:bold;font-size:13px;cursor:move;position:relative;color:#474747;text-shadow:0 1px 0 rgba(255,255,255,.75);border-bottom:1px solid #999;padding:6px 10px;-moz-border-radius:2px 2px 0 0;-webkit-border-radius:2px 2px 0 0;border-radius:2px 2px 0 0;-moz-box-shadow:0 1px 0 #fff inset;-webkit-box-shadow:0 1px 0 #fff inset;box-shadow:0 1px 0 #fff inset;background:#cfd1cf;background-image:-webkit-gradient(linear,left top,left bottom,from(#f5f5f5),to(#cfd1cf));background-image:-moz-linear-gradient(top,#f5f5f5,#cfd1cf);background-image:-webkit-linear-gradient(top,#f5f5f5,#cfd1cf);background-image:-o-linear-gradient(top,#f5f5f5,#cfd1cf);background-image:-ms-linear-gradient(top,#f5f5f5,#cfd1cf);background-image:linear-gradient(top,#f5f5f5,#cfd1cf);filter:progid:DXImageTransform.Microsoft.gradient(gradientType=0,startColorstr='#fff5f5f5',endColorstr='#ffcfd1cf')}.cke_dialog_contents{background-color:#fff;overflow:auto;padding:15px 10px 5px 10px;margin-top:30px;border-top:1px solid #bfbfbf;-moz-border-radius:0 0 3px 3px;-webkit-border-radius:0 0 3px 3px;border-radius:0 0 3px 3px}.cke_dialog_contents_body{overflow:auto;padding:17px 10px 5px 10px;margin-top:22px}.cke_dialog_footer{text-align:right;position:relative;border:0;outline:1px solid #bfbfbf;-moz-box-shadow:0 1px 0 #fff inset;-webkit-box-shadow:0 1px 0 #fff inset;box-shadow:0 1px 0 #fff inset;-moz-border-radius:0 0 2px 2px;-webkit-border-radius:0 0 2px 2px;border-radius:0 0 2px 2px;background:#cfd1cf;background-image:-webkit-gradient(linear,left top,left bottom,from(#ebebeb),to(#cfd1cf));background-image:-moz-linear-gradient(top,#ebebeb,#cfd1cf);background-image:-webkit-linear-gradient(top,#ebebeb,#cfd1cf);background-image:-o-linear-gradient(top,#ebebeb,#cfd1cf);background-image:-ms-linear-gradient(top,#ebebeb,#cfd1cf);background-image:linear-gradient(top,#ebebeb,#cfd1cf);filter:progid:DXImageTransform.Microsoft.gradient(gradientType=0,startColorstr='#ffebebeb',endColorstr='#cfd1cf')}.cke_rtl .cke_dialog_footer{text-align:left}.cke_hc .cke_dialog_footer{outline:0;border-top:1px solid #fff}.cke_dialog .cke_resizer{margin-top:22px}.cke_dialog .cke_resizer_rtl{margin-left:5px}.cke_dialog .cke_resizer_ltr{margin-right:5px}.cke_dialog_tabs{height:24px;display:inline-block;margin:5px 0 0;position:absolute;z-index:2;left:10px}.cke_rtl .cke_dialog_tabs{right:10px}a.cke_dialog_tab{height:16px;padding:4px 8px;margin-right:3px;display:inline-block;cursor:pointer;line-height:16px;outline:0;color:#595959;border:1px solid #bfbfbf;-moz-border-radius:3px 3px 0 0;-webkit-border-radius:3px 3px 0 0;border-radius:3px 3px 0 0;background:#d4d4d4;background-image:-webkit-gradient(linear,left top,left bottom,from(#fafafa),to(#ededed));background-image:-moz-linear-gradient(top,#fafafa,#ededed);background-image:-webkit-linear-gradient(top,#fafafa,#ededed);background-image:-o-linear-gradient(top,#fafafa,#ededed);background-image:-ms-linear-gradient(top,#fafafa,#ededed);background-image:linear-gradient(top,#fafafa,#ededed);filter:progid:DXImageTransform.Microsoft.gradient(gradientType=0,startColorstr='#fffafafa',endColorstr='#ffededed')}.cke_rtl a.cke_dialog_tab{margin-right:0;margin-left:3px}a.cke_dialog_tab:hover{background:#ebebeb;background:-moz-linear-gradient(top,#ebebeb 0,#dfdfdf 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#ebebeb),color-stop(100%,#dfdfdf));background:-webkit-linear-gradient(top,#ebebeb 0,#dfdfdf 100%);background:-o-linear-gradient(top,#ebebeb 0,#dfdfdf 100%);background:-ms-linear-{% extends '_base.html' %}
+{% load static %}
+{% block script %}
+<!--<script type="text/javascript" src="{% static 'javascript/pull-down-page.js' %}"></script>-->
+<script>
+    var init_data = {
+       openid: '{{ openid }}',
+       count : 10,
+       page : 1
+    };
+    var refresh_status = true;
+    var copy_data = init_data;
+    $(document).ready(function(){
+        load_vips(true);
+        $(window).bind('scroll', get_business);
+    });
+
+    function is_load(){
+        var pageHeight = Math.max(document.body.scrollHeight ||
+                document.body.offsetHeight);
+        var viewportHeight = window.innerHeight ||
+                document.documentElement.clientHeight ||
+                document.body.clientHeight || 0;
+        var scrollHeight = window.pageYOffset ||
+                document.documentElement.scrollTop ||
+                document.body.scrollTop || 0;
+
+        if(pageHeight - viewportHeight - scrollHeight < 30){
+            return true;
+        }
+        return false;
+    }
+    function get_business(){
+        if (is_load() && refresh_status){
+//          console.log("IN: is_load");
+            load_vips();
+        }
+    }
+
+    var has_page = true;
+    function load_vips(refresh){
+        refresh_status = false;
+        if( !has_page ){
+            console.log("Â∑≤ÁªèÊ≤°ÊúâÊï∞ÊçÆ‰∫Ü");
+            refresh_status = true;
+            return;
+        }
+        var initial = '<setion class="initial"><a><img src="../../../static/css/img/turn.gif">Ê≠£Âú®Âä†ËΩΩ‰∏≠</a></setion>';
+        $("#id_vip_list  ").append(initial);
+        var data = [];
+        $.each(copy_data, function(i, v){
+            data.push(i + '=' + v);
+        });
+        var url = "{% url 'vip_list' %}";
+        url += '?';
+        url += data.join('&');
+        $.get(url,function(msg){
+            if(msg.status == 1){
+                has_page = msg.msg.has_next;
+                var result = '<ul>';
+                if(msg.msg.vips.length == 0 && copy_data.p == 1){
+                    no_data_tip(true);
+                }else{
+                    no_data_tip(false);
+                }
+                copy_data.page += 1;
+                $.each(msg.msg.vips, function(i, v){
+                    result += '<li><a href="/business/vip/'+ v.business_id+'?openid={{ openid }}" class="clearfix">' +
+                    '<p class="fl longer">' + v.business_name+
+                    '</p>' +
+                    '<img class="fr" src="../../../static/css/img/select-right.png" />' +
+                    '</a>' +
+                    '</li>';
+                });
+                result += '</ul>';
+                if(!has_page && copy_data > 2){
+                    result += '<section class="page-foot"><a href="javascript:;">Âà∞Â∫ï‰∫Ü.</a></section>'
+                }
+                $("#id_vip_list  .initial").remove();
+                /*$("#id_vip_list").empty();*/
+                if(refresh == true){
+
+                    $("#id_vip_list  ").append(result);
+                }
+                else{
+                    $("#id_vip_list ").append(result);
+                }
+            }
+            refresh_status = true;
+        });
+    }
+</script>
+{% endblock %}
+{% block body %}
+
+<section class="page">
+
+    <section class="group-info" id="id_vip_list">
+
+            <!--{% for vip in vips %}
+                            <li>
+                                <a href="{% url 'vip_info' vip.business_id %}?openid={{ openid }}" class="clearfix">
+                                    <p class="fl longer">
+                                        {{ vip.business_name }}
+            {#	                        <span>{{ vip.business.get_first_tag }} {{ vip.business.businessinfo.address }}</span>#}
+                                    </p>
+                                    <img class="fr" src="{% static 'css/img/select-right.png' %}" />
+                                </a>
+                            </li>
+                        {% endfor %}-->
+
+    </section>
+
+</section>
+
+{% endblock %}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ect="{% url 'book_list' %}?openid={{ openid }}" id="id_booking_submit_order" >Á°ÆËÆ§È¢ÑËÆ¢</a>
+        </section>
+    </form>
+
+</section>
+
+{% endblock %}
+                                                                                                                                                                                                                                                                                                                                                                             Å§          0WoBwç~¸≈áÛ·@ªÑ…À
+>! src/sms/models.py S¢öW    Sé„               Å§          É`ìÿD+)LƒúûØ4(g£§s src/sms/views.py  SyhK    SÃh6              ÅÌ          ˙	ôoà´nïôƒzi˜'ˇ„c‹›qß src/templates/_base.html  SyhK    Sñùç              ÅÌ          ïÂ,Z6SÌRy ≈≠/ù»ÎÈ &src/templates/activity/act_detail.html    SyhK    Sæj              ÅÌ          	!]ß N⁄ên,QüÈ@Öqh» $src/templates/activity/act_list.html      SyhK    Sû¡	              ÅÌ          ˚iÔ÷v?î"™AäÚÄ?Õñ”V<` #src/templates/business/benefit.html       S™õÈ    S»«”              Å§          °¥„ùŸL®X3ä1∫L’*Ä=^NH $src/templates/business/bookings.html      SyhK    Sñùç              ÅÌ          –à5ÕL‹˘
+U‹’ú•
+]¥É* .src/templates/business/collected_business.html    SyhK    S¢RM              ÅÌ          ´πLÿØò±>WídC;§F0#⁄Ä -src/templates/business/collected_coupons.html     SyhK    S»é              ÅÌ          œ„ª÷ï∞Å6¯EeÄ≤èŒÌ[ "src/templates/business/coupon.html        SyhK    S¢RM              ÅÌ          å'¬&¥Uô60ÎóÛk^‡ÊBú )src/templates/business/coupon_detail.html SyhK    S»é              ÅÌ          3¸Üúù-ƒÆÓı_Ø«ÙDølÎû⁄9 'src/templates/business/coupon_list.html   SyhK    S»¬ê              ÅÌ          i|[ºlkƒ™Ä¶Y·*ﬂ∆sNó "src/templates/business/detail.html        SyhK    SÃ¿î              ÅÌ          (#ÛõˆäøÂñKÖˆïÉ¢À[®‰  src/templates/business/home.html  SyhK    SÕ∂T              ÅÌ          î∂K2b∆p.Y{D'Ç˘˛s-Ω«R… #src/templates/business/product.html       SyhK    Sæj              ÅÌ          á®PyECóáK!çc˜zÉË6ƒ  #src/templates/business/related.html       SyhK    S»é              ÅÌ          4—ÉÏ·r3ÓsèN O©^∆ )src/templates/business/vip_card_list.html SyhK    Sñùç              ÅÌ           êz5ô‚É¡À5õ˚úM+\y ¡ &src/templates/business/vip_detail.html    SyhK    Sæj              ÅÌ          %™´JQ∂@ø»¿Ÿlo˛‰Ääd†* $src/templates/business/vip_info.html      SyhK    Sñùç              ÅÌ          Ôæ˝m£àÆW©Õ{Q≠7fí∑£b $src/templates/business/vip_list.html      SyhK    S»é              ÅÌ          7ËÔkc&e}d÷v[•“/l§>Ã src/templates/index.html  SyhK    Sñùç              ÅÌ          „!ëîi˝‚w}@sÃí4˚] %src/templates/message/msg_detail.html     SyhK    Sû¡	              ÅÌ          ‹©{%-’ÒÌ’Äòå;_1á #src/templates/message/msg_list.html       SyhK    Sæj              ÅÌ          ?Ì˝c°‚:S	œUÒBûCiJ "src/templates/service/service.html        SyhK    Sñùç              ÅÌ          ,º£SÄH∫ÉÃù•uùÙvÕVÕZ )src/templates/service/service_detail.html S™õÈ    S™õÈ              Å§          p¯ëi)FydP€_ƒªß»»ÌI 'src/templates/shopping/book_detail.html   S™õÈ    Sæj              Å§          %ç≈“{>∞∏çó¶À;"/èﬁú %src/templates/shopping/book_list.html     SyhK    SŒ              ÅÌ          ¢Bq÷Â‹[ßˆÈ≈Oã2ë˘^9  src/templates/shopping/cart.html  SyhK    SÕ∫^              ÅÌ          RîÌÚÙ‘ê¥mπ* Wπxiøj∏ &src/templates/shopping/make_order.html    SyhK    Sæj              ÅÌ           Æõ y]ò…ª^ïÂ…)"≥)» (src/templates/shopping/order_detail.html  SyhK    Sæj              ÅÌ          ˚øˇπAx+)JMU0≥4f040075UàèœÃÀ,âè◊+®d¯ôºEóÅŸ}˘ãı=rnª'Ôùnb 
+â…%ôeô%ïúÇL˚ÑfYî∂OeZ¸ùÛÍ;◊Cî$ïgÊ•3hkîÛ/Ìqú˛ËUA·zÓ)ÀΩ6Ω®J‚ãR\ÖÉìb›}†%u°ÚjﬁÂ∂kûu…˘E©üœeOe6TTøtœáÀ˜ÿÅG+Æ≥A§3ÛRJãKä*Ú¥M÷$¯î∆˚;Õ®◊˝¿ª#Œ˝‘[πâyâÈ©`OÂœKø»ôuÏ˝∫ç"ÀéT˛R91'ËZ†"ÜYï≠ü&9˙˘M)‹«ﬂ√«U¥	¢¢8µ®,39ï·§zF€Ö¥˜ÅG$E#Kwƒz…úÖ©()…ÃK/fòo¡Ïz&È»îIÚ˘3˛N?ª’∫
+™$#ø Ä/f?˚µƒ˝úòg¯+Œ∞ˇbèãˇ˝E() √?§:«˚ºÒÍò=G’m?np®À˛™$∑ò¡¶Den·Åyµ¸G5Ó¨—2+¯
+ë-IÕ-»I,I-fX∂Øﬂ`KπRÔ≈ômëw˛zΩ}˝√&•E9≈†	øT1Õa°˝ƒ€rWÎõkôÆ˘…¥bL)–√_>ÿu∞{wâ˚Q%Nı3€Œ4sªA•K2sä´’Ω⁄æ$–q∑û‡›>¶’aâ6¢P 2SÀ¡Vú‰öt’Á‹ÎÁ{≠/~ô¯“dQﬂ'_àÂ©ôôyªzoôã|¯ß≥L¬BÛÁiˇyNæÇR^úû	r¶¿¨7b≠ﬂ∫œ˛)˚qˇÛçú¨hôÀ ¡#j                                                                                                                                                                                                                                                                                                                                                                                                                8_
+ qy qy W| | d	 <| | j
+ 7} | j | É qD W| | d
+ <| | d <t | d |  É S(   Nt	   cart_pageR    R   t   Wi    t   objt   cartt   It   itemst   cartst   totals   shopping/cart.html(   t   TrueR    R
+   R"   R#   t   dictR   t   productR   t	   get_stockRZ   t   floatt   pricet   countt   appendR   (
+   R   R%   t   uRY   t   resultRZ   t   cat   tmpt
+   cart_itemst   ci(    (    s)   F:\Repo\mz-wechat-c\src\shopping\views.pyRV   Ä   s$    		
+')
+
+
+c         C   s¢  |  j  } t j |  j j d É É } d } x} | D]u } t t d | d É} | j d k ss t d | j	 d d ÉSt
+ | d É | j k rú | | j	 7} q1 | | d <q1 W| r  d	 | } t | d d ÉSxŒ | D]∆ } | d } t
+ | d É } t j j d
+ | j d | d d É \ } } t j j d | d | É \ }	 }
+ |	 j t | j É | 7_ |	 j | 7_ | j t | j É | 7_ |	 j É  | j É  q— Wt É  S(   NR]   u    R'   R,   u   ÂïÜÂìÅ%sÂ∑≤‰∏ãÊû∂R   i    Ra   u   ÂïÜÂìÅ%sÂ∫ìÂ≠ò‰∏çË∂≥R3   R    RT   RV   (   R    t   jsont   loadsR   R   R   R   R   R   t   titleR/   t   stockR
+   R"   t   get_or_createR3   R   R`   R_   Ra   RZ   R2   (   R   Rc   t   productst   errorst   pR]   Ra   RV   t   cct   itemRh   (    (    s)   F:\Repo\mz-wechat-c\src\shopping\views.pyt   update_cartñ   s0    	
+
+*!
+c   
+      C   s∑  t  j |  j j d É É } d } g  } x	| D]} t t d | d É} | j j d k sk | j j É  rÖ t	 d | j j
+ d d ÉS| d	 d
+ k r≤ | j | j É | j É  q. t | d	 É | j j k r· | | j j
+ 7} q. t | d	 É | _ t | d É t | d	 É | _ | j É  | j | j É q. W| rSd | } t	 | d d ÉSt t | É É } x/| D]'} t j j d | É s°| j É  | j | É qld } x* t j j d | É D] } | | j 7} qΩW| | _ | j É  | j }	 t |	 d É re|	 j j d k r=| |	 j j k  rbt	 d |	 j d d ÉSqe|	 j j d k re| |	 j j 7} qen  | | _ | j d k râd

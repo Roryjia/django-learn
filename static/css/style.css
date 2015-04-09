@@ -1,0 +1,11 @@
+body{
+    margin: 0 auto;
+    padding: 0;
+}
+div {
+    background: powderblue url("/static/me.jpg") no-repeat right bottom;
+}
+
+ul.errorlist li{
+    color: #ff8c00;
+}

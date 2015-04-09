@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}显示所有的Company{% endblock %}
+{% block div %}
+    <table>
+        <tr>
+            <th>公司名称</th>
+            <th>公司网址</th>
+            <th>公司地址</th>
+            <th>公司LOGO</th>
+        </tr>
+    {% for com in result %}
+        <tr>
+            {% if name == com.name %}
+            <td><span style="color: red;">(新增加)</span>{{ com.name }}</td>
+            {% else %}
+            <td>{{ com.name }}</td>
+            {% endif %}
+            <td>{{ com.site }}</td>
+            <td>{{ com.addr }}</td>
+            <td><img src="{{ com.logo.url }}" alt="这是公司LOGO" /></td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
