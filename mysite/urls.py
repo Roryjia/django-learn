@@ -4,7 +4,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
 admin.autodiscover()
-from views import ShowParm
+from views import ShowParm, TestDispatch
 
 # django test
 from django.core.urlresolvers import reverse
@@ -30,6 +30,7 @@ urlpatterns = patterns('',
     url(r"^test_DecodeAES/$", "views.test_DecodeAES"),
     url(r"^test_DecodeAES_Java/$", "views.test_DecodeAES_Java"),
     url(r"^test_DecodeAES_File/$", "views.test_DecodeAES_File"),
+    url(r"^test_dispatch/(\w+)/?$", TestDispatch.as_view(), name='test-dispatch'),
 
 )
 

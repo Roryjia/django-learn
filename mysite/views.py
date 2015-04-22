@@ -185,3 +185,19 @@ def test_DecodeAES_File(request):
     # print json_content['a']
     # print json_content['b']
     return JsonResponse({'content': copy_file})
+
+
+from django.views.generic import View
+
+
+class TestDispatch(View):
+    """
+    测试dispatch
+    """
+    def dispatch(self, request, *args, **kwargs):
+        print args
+
+        return super(TestDispatch, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        return HttpResponse('<h1>Hello Django View Dispatch</h1>')
