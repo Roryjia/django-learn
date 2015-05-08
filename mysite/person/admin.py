@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#!coding=utf-8
+# -*-coding:utf-8 -*-
 __author__ = "LB14010015-STAFF"
 
 from django.contrib import admin

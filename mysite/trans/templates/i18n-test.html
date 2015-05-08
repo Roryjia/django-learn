@@ -1,0 +1,20 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans "This is the title. " %}</title>
+    <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
+    <script type="text/javascript">
+        document.write(gettext('this is to be translated'))
+    </script>
+</head>
+<body>
+<h1 id="site-name">{% trans 'Django administration' %}</h1>
+{% get_current_language as LANGUAGE_CODE %}
+Current language: {{ LANGUAGE_CODE }}
+{{ LANGUAGE_CODE|language_name_local }}
+<p>{% trans "Welcome to our page" %}</p>
+
+</body>
+</html>

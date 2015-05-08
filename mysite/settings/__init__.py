@@ -17,3 +17,18 @@ CKEDITOR_UPLOAD_PATH = os.path.join(os.path.dirname(__file__), '../../media/uplo
 # STATICFILES_DIRS = (
 #     '../static/',
 # )
+
+# ugettext = lambda s: s
+# LANGUAGES = (
+#     ('zh', ugettext('zh')),
+#     ('en', ugettext('en')),
+# )
+
+LOCALE_PATHS = os.path.join(os.path.dirname(__file__), '../locale/').replace('\\', '/')
+
+# LANGUAGE_CODE = 'zh-cn'
+# from django.utils.translation import ugettext as _
+# LANGUAGES = (
+#     ('zh-cn', _('China')),
+#     ('en', _('English')),
+# )

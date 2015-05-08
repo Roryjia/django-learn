@@ -14,6 +14,11 @@ from django.http import Http404
 # import xadmin
 # xadmin.autodiscover()
 
+
+js_info_dict = {
+    'packages': ('trans',),
+}
+
 urlpatterns = patterns('',
     # url(r'^xadmin/', include(xadmin.site.urls), name='xadmin'),
     url(r"^admin/", include(admin.site.urls)),
@@ -32,6 +37,10 @@ urlpatterns = patterns('',
     url(r"^test_DecodeAES_File/$", "views.test_DecodeAES_File"),
     url(r"^test_dispatch/(\w+)/?$", TestDispatch.as_view(), name='test-dispatch'),
 
+
+    url(r"^trans/", include("trans.urls")),
+    url(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', js_info_dict),
+    url(r'^i18n/', include('django.conf.urls.i18n')),
 )
 
 if settings.DEBUG:

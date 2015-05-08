@@ -104,9 +104,11 @@ TEMPLATE_LOADERS = (
     #     'django.template.loaders.eggs.Loader',
 )
 
+
 MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -141,6 +143,7 @@ INSTALLED_APPS = (
     'meeting',
     'ckeditor',
     'blog',
+    'trans',
 
     # 'xadmin',
     # 'crispy_forms',
@@ -164,7 +167,7 @@ ERROR_TIME_LOG = datetime.datetime.now().strftime('%Y-%m-%d')
 LOG_ROOT = os.path.join(os.path.dirname(__file__), '../../log/').replace('\\', '/')
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': True,
+    'disable_existing_loggers': False,
     # asctime:时间格式, threadName:线程名。可能没有, thread:线程ID。可能没有
     # name:Logger的名字, lineno:调用日志输出函数的语句所在的代码行
     # module:调用日志输出函数的模块名, funcName:调用日志输出函数的函数名
